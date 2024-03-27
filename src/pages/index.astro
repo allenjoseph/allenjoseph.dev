@@ -1,0 +1,13 @@
+---
+import NewsfeedSlider from '../components/NewsfeedSlider.astro';
+import { useI18n } from '../i18n/utils';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const i18n = useI18n();
+---
+
+<MainLayout title={i18n.header.title}>
+  <NewsfeedSlider />
+  <!-- <h1>Projects</h1>
+  <h1>Videos</h1> -->
+</MainLayout>

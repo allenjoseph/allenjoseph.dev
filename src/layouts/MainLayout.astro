@@ -1,0 +1,35 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- Icon theme: https://www.iconfinder.com/search/icons?family=unicons-line -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
+      as="style"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
+      media="print"
+      onload="this.media='all'"
+    />
+  </head>
+  <body class="bg-gray-100 bg-body antialiased">
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>

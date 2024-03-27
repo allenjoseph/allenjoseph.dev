@@ -1,0 +1,74 @@
+---
+import { useI18n } from '../i18n/utils';
+import Card from './Card.astro';
+
+interface Article {
+  author: string;
+  categories: string[];
+  content: string;
+  description: string;
+  enclosure: object;
+  guid: string;
+  link: string;
+  pubDate: string;
+  thumbnail: string;
+  title: string;
+}
+
+const i18n = useI18n();
+
+const articles: Article[] = await fetch(i18n.rss)
+  .then((res) => res.json())
+  .then((data) => data?.items || [])
+  .catch(() => []);
+---
+
+<script>
+  let itemByGroup = 0;
+
+  function matchMedia(query: string, cb: (matches: boolean) => void) {
+    const mediaQuery = window.matchMedia(query);
+    mediaQuery.addEventListener('change', (e) => cb(e.matches));
+    return mediaQuery;
+  }
+
+  const mediaQuerySm = matchMedia(
+    '(min-width: 640px)',
+    (matches) => (itemByGroup = matches ? 2 : 1)
+  );
+
+  const mediaQueryLg = matchMedia(
+    '(min-width: 1024px)',
+    (matches) => (itemByGroup = matches ? 3 : mediaQuerySm.matches ? 2 : 1)
+  );
+
+  itemByGroup = mediaQueryLg.matches ? 3 : mediaQuerySm.matches ? 2 : 1;
+
+  let currentItem = 0;
+
+  const newsfeed = document.querySelector('ul.newsfeed');
+  const items = newsfeed?.querySelectorAll('li[data-newsfeed]') || [];
+
+  function scrollNewsfeed() {
+    newsfeed?.scroll({
+      left: ++currentItem * (260 + 32),
+      behavior: 'smooth',
+    });
+
+    currentItem = currentItem === items.length - itemByGroup ? -1 : currentItem;
+  }
+
+  setInterval(() => scrollNewsfeed(), 3000);
+</script>
+
+<ul
+  class="newsfeed flex max-w-[292px] sm:max-w-[584px] lg:max-w-[876px] mx-auto my-8 overflow-hidden"
+>
+  {
+    articles.map((o, i) => (
+      <li data-newsfeed>
+        <Card {...o} />
+      </li>
+    ))
+  }
+</ul>

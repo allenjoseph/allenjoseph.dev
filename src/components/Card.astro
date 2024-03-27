@@ -1,0 +1,29 @@
+---
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
+
+const { link, thumbnail, title, pubDate } = Astro.props;
+---
+
+<div
+  class="m-4 h-[320px] max-h-[320px] max-w-[260px] bg-white shadow-md hover:border-[#8539ff] rounded-md border border-gray-200"
+>
+  <a
+    href={link}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="block h-[inherit] relative"
+  >
+    <img
+      class="min-w-[258px] min-h-[180px] object-cover rounded-t-md"
+      src={thumbnail}
+      alt={title}
+    />
+    <p class="my-4 px-4 text-lg line-clamp-3">{title}</p>
+    <small class="pl-4 mb-2 text-muted absolute bottom-0">
+      {dayjs(pubDate).fromNow()}
+    </small>
+  </a>
+</div>

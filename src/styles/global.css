@@ -1,0 +1,13 @@
+html {
+  overflow-x: auto;
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar {
+  background-color: #ddd;
+  width: 12px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #666;
+}
