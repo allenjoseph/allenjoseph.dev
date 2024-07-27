@@ -1,0 +1,27 @@
+---
+import GridLayout from '../layouts/GridLayout.astro';
+
+interface Props {
+  items: {
+    id: string;
+    img: string;
+    title: string;
+    url: string;
+  }[];
+}
+
+const { items } = Astro.props;
+---
+
+<GridLayout>
+  {
+    items.map((i) => (
+      <div class="cursor-pointer bg-white shadow-md hover:border-[#8539ff] rounded-md border border-gray-200">
+        <a href={i.url} target="_blank" rel="noopener noreferrer">
+          <img class="bg-center rounded-t-md" src={i.img} alt={i.title} />
+          <h4 class="p-2 text-center text-xl">{i.title}</h4>
+        </a>
+      </div>
+    ))
+  }
+</GridLayout>

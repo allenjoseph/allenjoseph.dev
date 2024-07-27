@@ -1,13 +1,56 @@
 ---
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, child, get } from 'firebase/database';
 import NewsfeedSlider from '../components/NewsfeedSlider.astro';
 import { useI18n } from '../i18n/utils';
 import MainLayout from '../layouts/MainLayout.astro';
+import Skills from '../components/Skills.astro';
+import Videos from '../components/Videos.astro';
+
+interface AppData {
+  title: string;
+  copyright: string;
+  description: string;
+  direction: string;
+  menus: { href: string; icon: string; name: string }[];
+  name: 'home';
+  sections: {
+    articles: {
+      description: string;
+      id: string;
+      items: any[];
+      title: string;
+    };
+    skills: {
+      description: string;
+      id: string;
+      items: any[];
+      title: string;
+    };
+  };
+  slogan: string;
+  socials: {
+    icon: string;
+    name: string;
+    url: string;
+  }[];
+}
 
 const i18n = useI18n();
+
+const appData: AppData = await fetch(
+  'https://allenjoseph.dev/__/firebase/init.json'
+)
+  .then((response) => response.json())
+  .then((config) => get(child(ref(getDatabase(initializeApp(config))), 'data')))
+  .then((snapshot) => snapshot.exists() && snapshot.val());
 ---
 
 <MainLayout title={i18n.header.title}>
   <NewsfeedSlider />
-  <!-- <h1>Projects</h1>
-  <h1>Videos</h1> -->
+  <hr class="container my-12" />
+  <Skills items={appData.sections.skills.items} />
+  <hr class="container my-12" />
+  <Videos items={appData.sections.articles.items} />
+  <hr class="container my-12" />
 </MainLayout>

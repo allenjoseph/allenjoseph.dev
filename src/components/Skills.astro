@@ -1,0 +1,27 @@
+---
+import GridLayout from '../layouts/GridLayout.astro';
+
+interface Props {
+  items: {
+    name: string;
+    description: string;
+    background: string;
+    textColor: string;
+  }[];
+}
+
+const { items } = Astro.props;
+---
+
+<GridLayout>
+  {
+    items.map((i) => (
+      <article
+        class="text-center p-4 rounded-md shadow-md"
+        style={`color: ${i.textColor}; background: ${i.background}`}
+      >
+        <h3 class="text-2xl font-semibold">{i.name}</h3>
+      </article>
+    ))
+  }
+</GridLayout>
