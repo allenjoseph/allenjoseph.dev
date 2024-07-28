@@ -1,6 +1,6 @@
 ---
 import { useI18n } from '../i18n/utils';
-import Card from './Card.astro';
+import Card from './Card';
 
 interface Article {
   author: string;
@@ -65,9 +65,9 @@ const articles: Article[] = await fetch(i18n.rss)
   class="newsfeed flex max-w-[292px] sm:max-w-[584px] lg:max-w-[876px] mx-auto mt-12 overflow-hidden"
 >
   {
-    articles.map((o, i) => (
+    articles.map((o) => (
       <li data-newsfeed>
-        <Card {...o} />
+        <Card {...o} client:load />
       </li>
     ))
   }
