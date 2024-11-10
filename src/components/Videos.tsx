@@ -6,7 +6,7 @@ export default function Videos() {
   return (
     <section class="container grid grid-flow-row grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {!data
-        ? Array.from({ length: 3 }, (_, i) => (
+        ? Array.from({ length: 3 }, () => (
             <div class="bg-white shadow-md rounded-md border border-gray-200">
               <div class="h-[290px] bg-slate-100" />
               <div class="h-11 p-4">
