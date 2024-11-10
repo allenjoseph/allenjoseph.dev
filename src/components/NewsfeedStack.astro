@@ -16,7 +16,7 @@ interface Article {
 
 const i18n = useI18n();
 
-const articlesPromise: Promise<Article[]> = fetch(i18n.rss)
+const articlesPromise: Promise<Article[]> = fetch(i18n.rss.stack)
   .then((res) => res.json())
   .then((data) => data?.items || [])
   .catch(() => []);

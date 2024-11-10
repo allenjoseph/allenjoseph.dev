@@ -6,7 +6,12 @@ export const languages = {
 export const defaultLangKey = 'en';
 
 const defaultLang = {
-  rss: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Fgizmodo.com%2Frss',
+  rss: {
+    slider:
+      'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fgizmodo.com%2Frss',
+    stack:
+      'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.ycombinator.com%2Frss',
+  },
   header: {
     title: 'Allen Joseph',
     description:
@@ -24,7 +29,12 @@ const defaultLang = {
 export const ui = {
   en: defaultLang,
   es: Object.assign({}, defaultLang, {
-    rss: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Fes.gizmodo.com%2Frss',
+    rss: {
+      slider:
+        'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fes.gizmodo.com%2Frss',
+      stack:
+        'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.ycombinator.com%2Frss',
+    },
     header: Object.assign({}, defaultLang.header, {
       description:
         'Ingeniero en Computación y Desarrollador FrontEnd, enormemente interesado en el diseño y desarrollo web así como en lenguajes de programación innovadores, creativos y divertidos. Amante virtual de los deportes de aventura, comprometido con lo que hace y consciente de que cada día es perfecto para aprender algo nuevo.',
