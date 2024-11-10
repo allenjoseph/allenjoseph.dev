@@ -17,7 +17,7 @@ interface Article {
 
 const i18n = useI18n();
 
-const articles: Article[] = await fetch(i18n.rss)
+const articlesPromise: Promise<Article[]> = fetch(i18n.rss)
   .then((res) => res.json())
   .then((data) => data?.items || [])
   .catch(() => []);
@@ -65,10 +65,12 @@ const articles: Article[] = await fetch(i18n.rss)
   class="newsfeed flex max-w-[292px] sm:max-w-[584px] lg:max-w-[876px] mx-auto mt-12 overflow-hidden"
 >
   {
-    articles.map((o) => (
-      <li data-newsfeed>
-        <Card {...o} client:load />
-      </li>
-    ))
+    articlesPromise.then((data) =>
+      data.map((o) => (
+        <li data-newsfeed>
+          <Card {...o} client:load />
+        </li>
+      ))
+    )
   }
 </ul>

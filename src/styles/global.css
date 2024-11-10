@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Sans Fallback';
+  font-style: normal;
+  src: local('Tahoma');
+  size-adjust: 65%;
+}
+
 html {
   overflow-x: auto;
   overflow-y: scroll;

@@ -99,7 +99,9 @@ const i18n = useI18n();
   }
 </style>
 
-<header class="bg-header py-6 shadow-sm shadow-[#2e1d4a]">
+<header
+  class="bg-header py-6 shadow-sm bg-[#261c49] shadow-[#2e1d4a] min-h-[300px]"
+>
   <section class="container flex flex-col lg:flex-row items-center gap-6">
     <div class="circle">
       <div class="noise"></div>
@@ -119,6 +121,6 @@ const i18n = useI18n();
       <h2 class="text-2xl text-gray-100">{i18n.header.slogan}</h2>
       <p class="text-xl text-gray-200">{i18n.header.description}</p>
     </div>
-    <NewsfeedStack />
+    <NewsfeedStack client:load />
   </section>
 </header>
