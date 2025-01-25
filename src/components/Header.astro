@@ -1,6 +1,6 @@
 ---
 import { useI18n } from '../i18n/utils';
-import NewsfeedStack from './NewsfeedStack.astro';
+import NewsfeedStack from './NewsfeedStack';
 
 const i18n = useI18n();
 ---
@@ -121,6 +121,6 @@ const i18n = useI18n();
       <h2 class="text-2xl text-gray-100">{i18n.header.slogan}</h2>
       <p class="text-xl text-gray-200">{i18n.header.description}</p>
     </div>
-    <NewsfeedStack />
+    <NewsfeedStack client:idle />
   </section>
 </header>

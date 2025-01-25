@@ -1,4 +1,4 @@
----
+import { useEffect, useState } from 'preact/hooks';
 import { useI18n } from '../i18n/utils';
 
 interface Article {
@@ -14,31 +14,22 @@ interface Article {
   title: string;
 }
 
-const i18n = useI18n();
+const rssUrl = useI18n().rss.stack;
 
-const articlesPromise: Promise<Article[]> = fetch(i18n.rss.stack)
-  .then((res) => res.json())
-  .then((data) => data?.items || [])
-  .catch(() => []);
----
+export default function NewsfeedStack() {
+  const [articles, setArticles] = useState<Article[]>([]);
 
-<style>
-  ul::-webkit-scrollbar {
-    background-color: rgba(250, 250, 250, 0.1);
-    width: 10px;
-  }
+  useEffect(() => {
+    console.log('rssUrl', rssUrl);
+    fetch(rssUrl)
+      .then((res) => res.json())
+      .then((data) => setArticles(data?.items || []))
+      .catch(() => []);
+  }, []);
 
-  ul::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-</style>
-
-<ul
-  class="min-w-[300px] md:min-w-[360px] h-[250px] overflow-x-hidden overflow-y-auto bg-gray-100/10 text-gray-100"
->
-  {
-    articlesPromise.then((data) =>
-      data.map((o) => (
+  return (
+    <ul class="newsfeed-stack min-w-[300px] md:min-w-[360px] h-[250px] overflow-x-hidden overflow-y-auto bg-gray-100/10 text-gray-100">
+      {articles.map((o) => (
         <li
           class="border-b border-gray-100/20 hover:bg-gray-50/20 transition-colors duration-200 ease-in-out"
           data-guid={o.guid}
@@ -52,7 +43,7 @@ const articlesPromise: Promise<Article[]> = fetch(i18n.rss.stack)
             {o.title}
           </a>
         </li>
-      ))
-    )
-  }
-</ul>
+      ))}
+    </ul>
+  );
+}

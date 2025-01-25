@@ -1,7 +1,7 @@
 ---
 import { useI18n } from '../i18n/utils';
 import MainLayout from '../layouts/MainLayout.astro';
-import NewsfeedSlider from '../components/NewsfeedSlider.astro';
+import NewsfeedSlider from '../components/NewsfeedSlider';
 import Skills from '../components/Skills';
 import Videos from '../components/Videos';
 
@@ -9,7 +9,7 @@ const i18n = useI18n();
 ---
 
 <MainLayout title={i18n.header.title}>
-  <NewsfeedSlider />
+  <NewsfeedSlider client:idle />
   <hr class="container my-12" />
   <Skills client:load />
   <hr class="container my-12" />
