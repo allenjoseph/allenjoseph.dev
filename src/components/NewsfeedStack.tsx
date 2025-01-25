@@ -20,7 +20,6 @@ export default function NewsfeedStack() {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    console.log('rssUrl', rssUrl);
     fetch(rssUrl)
       .then((res) => res.json())
       .then((data) => setArticles(data?.items || []))

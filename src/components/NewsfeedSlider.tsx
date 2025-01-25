@@ -40,6 +40,8 @@ export default function NewsfeedSlider() {
   }, []);
 
   useEffect(() => {
+    if (!articles.length) return;
+
     const newsfeed = document.querySelector('ul.newsfeed');
     const items = newsfeed?.querySelectorAll('li[data-newsfeed]') || [];
     const maxSlides = items.length - itemByGroup;
@@ -54,7 +56,7 @@ export default function NewsfeedSlider() {
 
     const timer = setInterval(() => scrollNewsfeed(), 3000);
     return () => clearInterval(timer);
-  }, [itemByGroup]);
+  }, [itemByGroup, articles]);
 
   return (
     <ul class="newsfeed flex max-w-[292px] sm:max-w-[584px] lg:max-w-[876px] mx-auto mt-12 overflow-hidden">
