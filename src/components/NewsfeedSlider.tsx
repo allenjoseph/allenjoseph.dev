@@ -43,25 +43,26 @@ export default function NewsfeedSlider() {
     if (!articles.length) return;
 
     const newsfeed = document.querySelector('ul.newsfeed');
-    const items = newsfeed?.querySelectorAll('li[data-newsfeed]') || [];
-    const maxSlides = items.length - itemByGroup;
+    if (!newsfeed) return;
 
-    function scrollNewsfeed() {
-      newsfeed?.scroll({
-        left: ++slide.current * (260 + 32),
-        behavior: 'smooth',
-      });
-      slide.current = slide.current === maxSlides ? -1 : slide.current;
-    }
+    const timer = setInterval(() => {
+      const firstNode = newsfeed.childNodes[0];
+      newsfeed.appendChild(firstNode.cloneNode(true));
+      newsfeed.scroll({ left: 260 + 32, behavior: 'smooth' });
 
-    const timer = setInterval(() => scrollNewsfeed(), 3000);
+      setTimeout(() => {
+        firstNode.remove();
+        newsfeed.scroll({ left: 0 });
+      }, 1000);
+    }, 5000);
+
     return () => clearInterval(timer);
   }, [itemByGroup, articles]);
 
   return (
     <ul class="newsfeed flex max-w-[292px] sm:max-w-[584px] lg:max-w-[876px] mx-auto mt-12 overflow-hidden">
       {articles.map((o) => (
-        <li data-newsfeed>
+        <li>
           <Card {...o} />
         </li>
       ))}
